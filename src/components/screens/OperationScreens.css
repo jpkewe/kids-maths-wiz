@@ -15,8 +15,8 @@
 .back-button {
   position: absolute;
   left: 0;
-  font-size: 1.2rem;
-  padding: 0.5rem 1rem;
+  font-size: 1.1rem; /* Adjusted font size for consistency */
+  padding: 0.75rem 1.5rem; /* Increased padding for consistency */
   font-weight: 500;
 }
 
@@ -79,11 +79,12 @@
 }
 
 .difficulty-button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 2rem; /* Increased padding */
   border-radius: 0.5rem;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  font-size: 1.1rem; /* Increased font size */
 }
 
 .difficulty-button.easy {
@@ -175,6 +176,10 @@
   font-size: 2.5rem;
   font-weight: 700;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .light-mode .problem-display h2 {
@@ -192,25 +197,44 @@
   margin-bottom: 1.5rem;
 }
 
+.button-container {
+  display: flex;
+  justify-content: center; /* Center the button group */
+  width: 100%; /* Ensure container takes full width */
+}
+
+.button-group {
+  display: flex;
+  justify-content: center; /* Center buttons within the group */
+  gap: 1.5rem; /* Increased gap */
+}
+
+.action-button {
+  min-width: 150px; /* Increased min-width */
+  padding: 0.75rem 2rem; /* Increased padding */
+  font-size: 1.1rem; /* Increased font size */
+  text-align: center;
+}
+
 .answer-field {
-  padding: 0.75rem 1rem;
-  font-size: 1.25rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 2.5rem; /* Match the h2 font size */
   border-radius: 0.5rem;
-  width: 150px;
+  width: 100px; /* Adjust width as needed */
   text-align: center;
   transition: all 0.2s ease;
+  border: 2px solid #e2e8f0; /* Default border */
 }
 
 .light-mode .answer-field {
-  border: 2px solid #e2e8f0;
   background-color: #ffffff;
   color: #1e293b;
 }
 
 .dark-mode .answer-field {
-  border: 2px solid #475569;
   background-color: #1e293b;
   color: #f8fafc;
+  border-color: #475569;
 }
 
 .light-mode .answer-field:focus {
@@ -228,11 +252,14 @@
 .answer-field.correct {
   border-color: #22c55e;
   background-color: #dcfce7;
+  color: #166534; /* Darker green color for correct answer */
 }
 
 .answer-field.incorrect {
   border-color: #ef4444;
   background-color: #fee2e2;
+  color: #ff0000; /* Bright red color for incorrect answer */
+  font-weight: bold;
 }
 
 .feedback {
@@ -289,16 +316,184 @@
 .difficulty-button.selected {
   transform: scale(1.05);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid; /* Add a thick border */
 }
 
 .difficulty-button.easy.selected {
-  background-color: #bbf7d0;
+  background-color: #86efac; /* Darker green */
+  border-color: #166534; /* Darker border color */
+  color: #166534;
 }
 
 .difficulty-button.medium.selected {
-  background-color: #fed7aa;
+  background-color: #fdba74; /* Darker orange */
+  border-color: #9a3412; /* Darker border color */
+  color: #9a3412;
 }
 
 .difficulty-button.hard.selected {
-  background-color: #fecaca;
+  background-color: #fca5a5; /* Darker red */
+  border-color: #b91c1c; /* Darker border color */
+  color: #b91c1c;
+}
+
+/* Circle Representation Box Styles */
+.circle-representation-box {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0; /* Default border color */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.light-mode .circle-representation-box {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.dark-mode .circle-representation-box {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+
+/* Visual Representation Styles */
+.circle-representation-box {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0; /* Default border color */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.light-mode .circle-representation-box {
+  background-color: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.dark-mode .circle-representation-box {
+  background-color: #334155;
+  border-color: #475569;
+}
+
+
+/* Visual Representation Styles */
+.visual-representation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping for larger numbers */
+}
+
+.math-symbol {
+  font-size: 2rem;
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
+.light-mode .math-symbol {
+  color: #1e293b;
+}
+
+.dark-mode .math-symbol {
+  color: #f8fafc;
+}
+
+.circle-representation {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.5rem; /* Adjust spacing between groups */
+}
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 2px;
+  display: inline-block;
+  /* Default color - can be overridden by prop */
+  background-color: #3b82f6; /* Blue */
+}
+
+/* Subtraction specific styles */
+.circle.faded {
+  opacity: 0.5; /* Adjusted faded style */
+  position: relative; /* Needed for pseudo-elements */
+}
+
+.circle.faded::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%; /* Extend line beyond circle */
+  height: 2px; /* Line thickness */
+  background-color: #000; /* Default color of the crossed-out line */
+  transform: translate(-50%, -50%) rotate(45deg); /* Center and rotate the line */
+}
+
+.light-mode .circle.faded::before {
+  background-color: #1e293b; /* Dark color for light mode */
+}
+
+.dark-mode .circle.faded::before {
+  background-color: #f8fafc; /* Light color for dark mode */
+}
+
+/* Multiplication specific styles */
+.multiplication-operand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circle-row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Division specific styles */
+.division-operand-1 {
+  /* Style for grouped circles in division first operand */
+  border: 2px solid #3b82f6; /* Example border to show grouping */
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.division-operand-2 {
+  /* Style for the representation of groups in division second operand */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-group-representation {
+  width: 30px; /* Example size for a group placeholder */
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid; /* Color will come from prop */
+  margin: 2px;
+  /* Display and centering handled by inline styles in component */
+  /* TODO: Add visual cue inside the circle to represent a group */
+}
+
+/* Animation for incorrect answer shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }

@@ -19,6 +19,7 @@ export function RandomScreen({ onBack }: RandomScreenProps) {
   const [userAnswer, setUserAnswer] = useState<string>('');
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [canProceed, setCanProceed] = useState<boolean>(false);
   const [stats, setStats] = useState({
     total: 0,
     correct: 0
@@ -80,17 +81,10 @@ export function RandomScreen({ onBack }: RandomScreenProps) {
     setStats(newStats);
     console.log('Updated stats:', newStats);
     
-    // Generate a new problem after a short delay if the answer was correct
+    // If the answer is correct, allow proceeding to the next problem
     if (correct) {
-      console.log('Answer is correct, generating new problem in 1.5 seconds');
-      setTimeout(() => {
-        const newProblem = generateProblem('random', difficulty);
-        setProblem(newProblem);
-        setUserAnswer('');
-        setFeedback(null);
-        setIsCorrect(null);
-        console.log('Generated new problem after correct answer:', newProblem);
-      }, 1500);
+      console.log('Answer is correct, user can proceed to next problem');
+      setCanProceed(true);
     }
   };
 
@@ -106,6 +100,18 @@ export function RandomScreen({ onBack }: RandomScreenProps) {
     if (e.key === 'Enter') {
       handleSubmit();
     }
+  };
+  
+  // Handle next problem generation
+  const handleNext = () => {
+    console.log('Next button clicked, generating new problem');
+    const newProblem = generateProblem('random', difficulty);
+    setProblem(newProblem);
+    setUserAnswer('');
+    setFeedback(null);
+    setIsCorrect(null);
+    setCanProceed(false);
+    console.log('Generated new problem:', newProblem);
   };
 
   return (
@@ -140,20 +146,41 @@ export function RandomScreen({ onBack }: RandomScreenProps) {
         {problem && (
           <div className="problem-container">
             <div className="problem-display">
-              <h2>{problem.displayString}</h2>
+              <h2>
+                {problem.operands[0]} {problem.operation === 'addition' ? '+' : problem.operation === 'subtraction' ? '-' : problem.operation === 'multiplication' ? '*' : problem.operation === 'division' ? '/' : ''} {problem.operands[1]} =
+                <input
+                  type="text"
+                  value={userAnswer}
+                  onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
+                  placeholder="?"
+                  className={`answer-field ${isCorrect === true ? 'correct' : ''} ${isCorrect === false ? 'incorrect' : ''}`}
+                  autoFocus
+                />
+              </h2>
             </div>
             
-            <div className="answer-input">
-              <input
-                type="text"
-                value={userAnswer}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Enter your answer"
-                className={`answer-field ${isCorrect === true ? 'correct' : ''} ${isCorrect === false ? 'incorrect' : ''}`}
-                autoFocus
-              />
-              <Button onClick={handleSubmit}>Check Answer</Button>
+            <div className="button-container"> {/* New container for buttons */}
+              <div className="button-group">
+                <Button
+                  onClick={handleSubmit}
+                  variant="default"
+                  size="default"
+                  className="action-button"
+                >
+                  Check Answer
+                </Button>
+                {canProceed && (
+                  <Button
+                    onClick={handleNext}
+                    variant="secondary"
+                    size="default"
+                    className="action-button"
+                  >
+                    Next
+                  </Button>
+                )}
+              </div>
             </div>
             
             {feedback && (
