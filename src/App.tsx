@@ -5,12 +5,15 @@ import { SubtractionScreen } from './components/screens/SubtractionScreen'
 import { MultiplicationScreen } from './components/screens/MultiplicationScreen'
 import { DivisionScreen } from './components/screens/DivisionScreen'
 import { RandomScreen } from './components/screens/RandomScreen'
+import { ThemeToggle } from './components/theme/ThemeToggle'
+import { useTheme } from './components/theme/ThemeProvider'
 import './App.css'
 
 type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'random' | null;
 
 function App() {
   const [selectedOperation, setSelectedOperation] = useState<Operation>(null);
+  const { theme } = useTheme();
 
   const handleOperationSelect = (operation: Operation) => {
     setSelectedOperation(operation);
@@ -91,7 +94,10 @@ function App() {
   };
 
   return (
-    <div className="app-container">
+    <div className={`app-container ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
+      <div className="theme-toggle-container">
+        <ThemeToggle />
+      </div>
       {renderContent()}
     </div>
   );

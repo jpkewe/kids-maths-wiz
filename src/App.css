@@ -5,7 +5,24 @@
   justify-content: center;
   min-height: 100vh;
   padding: 2rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.light-mode {
   background-color: white;
+  color: #1e293b;
+}
+
+.dark-mode {
+  background-color: #1e293b;
+  color: white;
+}
+
+.theme-toggle-container {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
 }
 
 .content-container {
@@ -23,14 +40,28 @@
   font-size: 2.5rem;
   font-weight: 700;
   line-height: 1.2;
-  color: #1e293b;
   margin-bottom: 0.75rem;
+}
+
+.light-mode .title {
+  color: #1e293b;
+}
+
+.dark-mode .title {
+  color: #f8fafc;
 }
 
 .subtitle {
   font-size: 1.25rem;
-  color: #64748b;
   margin-top: 0.75rem;
+}
+
+.light-mode .subtitle {
+  color: #64748b;
+}
+
+.dark-mode .subtitle {
+  color: #94a3b8;
 }
 
 .button-container {
@@ -43,13 +74,21 @@
 .status-message {
   margin: 1.5rem 0;
   padding: 1rem;
-  background-color: #e9f7fe;
   border-radius: 0.5rem;
   font-size: 1.1rem;
-  color: #0078d4;
   font-weight: 500;
   text-align: center;
   transition: all 0.3s ease;
+}
+
+.light-mode .status-message {
+  background-color: #e9f7fe;
+  color: #0078d4;
+}
+
+.dark-mode .status-message {
+  background-color: #1e3a5f;
+  color: #7dd3fc;
 }
 
 .operation-button {
