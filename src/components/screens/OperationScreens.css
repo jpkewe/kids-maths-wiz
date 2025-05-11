@@ -1,0 +1,119 @@
+.operation-screen {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.operation-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 0;
+}
+
+.operation-title {
+  width: 100%;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.operation-description {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.operation-description p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  color: #64748b;
+}
+
+.difficulty-options {
+  margin-bottom: 2rem;
+}
+
+.difficulty-options h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.difficulty-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.difficulty-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.difficulty-button.easy {
+  background-color: #dcfce7;
+  color: #166534;
+  border: 1px solid #86efac;
+}
+
+.difficulty-button.easy:hover {
+  background-color: #bbf7d0;
+}
+
+.difficulty-button.medium {
+  background-color: #ffedd5;
+  color: #9a3412;
+  border: 1px solid #fdba74;
+}
+
+.difficulty-button.medium:hover {
+  background-color: #fed7aa;
+}
+
+.difficulty-button.hard {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+}
+
+.difficulty-button.hard:hover {
+  background-color: #fecaca;
+}
+
+.operations-selection {
+  margin-top: 2rem;
+}
+
+.operations-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 200px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.operations-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.operations-checkboxes input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+}
