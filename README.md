@@ -1,53 +1,54 @@
-# Kids Maths Wiz
+# React + TypeScript + Vite
 
-A desktop application designed to help children aged 4-6 learn basic arithmetic in a fun, interactive way.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Overview
+Currently, two official plugins are available:
 
-Kids Maths Wiz is an educational application that focuses on teaching basic arithmetic operations (addition, subtraction, multiplication, division) to young children. The app features a child-friendly interface with large buttons, colorful visuals, and supportive audio feedback.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Target Audience
+## Expanding the ESLint configuration
 
-- Children aged 4-6 years
-- Parents/Guardians who want to help their children learn basic math
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-## Features
-
-- Core arithmetic problem-solving (addition, subtraction, multiplication, division)
-- Parental customization of difficulty (operand ranges and operations)
-- Progress tracking with visual stats
-- Input-based interaction using a child-friendly numpad
-- Motivating feedback using voice, animations, and sound effects
-- No network dependency or external data usage
-
-## Technologies
-
-- React
-- TypeScript
-- Tailwind CSS
-- Shadcn UI Components
-- Local storage for progress tracking
-
-## Development Setup
-
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Start the development server: `npm run dev`
-
-## Project Structure
-
-```
-kids-maths-wiz/
-├── public/          # Static assets
-├── src/             # Source code
-│   ├── components/  # UI components
-│   ├── hooks/       # Custom React hooks
-│   ├── pages/       # Application pages
-│   ├── utils/       # Utility functions
-│   └── App.tsx      # Main application component
-└── README.md        # Project documentation
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## License
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-[MIT License](LICENSE)
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
