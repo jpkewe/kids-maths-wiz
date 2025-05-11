@@ -4,7 +4,7 @@ A desktop application designed to help children aged 4-6 learn basic arithmetic 
 
 ## Overview
 
-Kids Maths Wiz is an offline-only educational application that focuses on teaching basic arithmetic operations (addition, subtraction, multiplication, division) to young children. The app features a child-friendly interface with large buttons, colorful visuals, and supportive audio feedback.
+Kids Maths Wiz is an educational application that focuses on teaching basic arithmetic operations (addition, subtraction, multiplication, division) to young children. The app features a child-friendly interface with large buttons, colorful visuals, and supportive audio feedback.
 
 ## Target Audience
 
