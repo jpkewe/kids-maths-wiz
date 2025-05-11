@@ -10,9 +10,6 @@
 /build
 /dist
 
-# Documentation
-/docs
-
 # Misc
 .DS_Store
 .env.local
