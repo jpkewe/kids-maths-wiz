@@ -1,3 +1,5 @@
+![Kids Maths Wiz Logo](src/assets/images/kids-maths-wiz_logo.png)
+
 # Kids Maths Wiz
 
 ## Secure, Offline Math Learning App for Young Children
