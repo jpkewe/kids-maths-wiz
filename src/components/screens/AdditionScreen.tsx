@@ -9,6 +9,8 @@ import {
   type MathProblem
 } from '../../lib/math';
 import CircleRepresentation from '../ui/CircleRepresentation';
+import ReactConfetti from 'react-confetti';
+import useOperationFeedback from '../../hooks/useOperationFeedback'; // Import the new hook
 
 interface AdditionScreenProps {
   onBack: () => void;
@@ -26,6 +28,9 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
     correct: 0
   });
 
+  // Use the custom hook for feedback animations and sounds
+  const { showConfetti, answerInputRef } = useOperationFeedback(isCorrect);
+
   // Generate a new problem when component mounts or difficulty changes
   useEffect(() => {
     // Generate a new problem and log it
@@ -38,9 +43,6 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
     console.log('Generated new problem in useEffect:', newProblem);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [difficulty]);
-
-  // This function was removed as it's no longer needed
-  // We now generate problems directly in useEffect and handleSubmit
 
   // Handle difficulty selection
   const handleDifficultySelect = (selected: DifficultyLevel) => {
@@ -85,10 +87,10 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
     setStats(newStats);
     console.log('Updated stats:', newStats);
     
-    // If the answer is correct, allow proceeding to the next problem
     if (correct) {
-      console.log('Answer is correct, user can proceed to next problem');
       setCanProceed(true);
+    } else {
+      setCanProceed(false); // User cannot proceed until correct answer
     }
   };
 
@@ -97,6 +99,10 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
     // Only allow numeric input
     const value = e.target.value.replace(/[^0-9]/g, '');
     setUserAnswer(value);
+    // Reset feedback and correctness state when user starts typing again
+    setFeedback(null);
+    setIsCorrect(null);
+    setCanProceed(false);
   };
 
   // Handle key press in the input field
@@ -120,6 +126,7 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
 
   return (
     <OperationLayout title="Addition Practice" onBack={onBack}>
+      {showConfetti && <ReactConfetti />} {/* Confetti animation */}
       <div className="operation-description">
         <p>Practice adding numbers together!</p>
         
@@ -148,7 +155,6 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
         </div>
         
         {/* Visual representation for Easy and Medium difficulties */}
-        {/* Visual representation for Easy and Medium difficulties */}
         {(difficulty === 'easy' || difficulty === 'medium') && problem && (
           <div className="circle-representation-box">
             <div className="visual-representation">
@@ -173,6 +179,7 @@ export function AdditionScreen({ onBack }: AdditionScreenProps) {
                   onKeyDown={handleKeyDown}
                   placeholder="?"
                   className={`answer-field ${isCorrect === true ? 'correct' : ''} ${isCorrect === false ? 'incorrect' : ''}`}
+                  ref={answerInputRef} // Add ref to input
                   autoFocus
                 />
               </h2>

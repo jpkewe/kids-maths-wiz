@@ -9,6 +9,8 @@ import {
   type MathProblem
 } from '../../lib/math';
 import CircleRepresentation from '../ui/CircleRepresentation';
+import ReactConfetti from 'react-confetti';
+import useOperationFeedback from '../../hooks/useOperationFeedback'; // Import the new hook
 
 interface SubtractionScreenProps {
   onBack: () => void;
@@ -25,6 +27,9 @@ export function SubtractionScreen({ onBack }: SubtractionScreenProps) {
     total: 0,
     correct: 0
   });
+
+  // Use the custom hook for feedback animations and sounds
+  const { showConfetti, answerInputRef } = useOperationFeedback(isCorrect);
 
   // Generate a new problem when component mounts or difficulty changes
   useEffect(() => {
@@ -82,10 +87,10 @@ export function SubtractionScreen({ onBack }: SubtractionScreenProps) {
     setStats(newStats);
     console.log('Updated stats:', newStats);
     
-    // If the answer is correct, allow proceeding to the next problem
     if (correct) {
-      console.log('Answer is correct, user can proceed to next problem');
       setCanProceed(true);
+    } else {
+      setCanProceed(false); // User cannot proceed until correct answer
     }
   };
 
@@ -94,6 +99,10 @@ export function SubtractionScreen({ onBack }: SubtractionScreenProps) {
     // Only allow numeric input
     const value = e.target.value.replace(/[^0-9]/g, '');
     setUserAnswer(value);
+    // Reset feedback and correctness state when user starts typing again
+    setFeedback(null);
+    setIsCorrect(null);
+    setCanProceed(false);
   };
 
   // Handle key press in the input field
@@ -117,6 +126,7 @@ export function SubtractionScreen({ onBack }: SubtractionScreenProps) {
 
   return (
     <OperationLayout title="Subtraction Practice" onBack={onBack}>
+      {showConfetti && <ReactConfetti />} {/* Confetti animation */}
       <div className="operation-description">
         <p>Practice subtracting numbers!</p>
         
@@ -169,6 +179,7 @@ export function SubtractionScreen({ onBack }: SubtractionScreenProps) {
                   onKeyDown={handleKeyDown}
                   placeholder="?"
                   className={`answer-field ${isCorrect === true ? 'correct' : ''} ${isCorrect === false ? 'incorrect' : ''}`}
+                  ref={answerInputRef} // Add ref to input
                   autoFocus
                 />
               </h2>

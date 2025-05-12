@@ -7,6 +7,7 @@ import { DivisionScreen } from './components/screens/DivisionScreen'
 import { RandomScreen } from './components/screens/RandomScreen'
 import { ThemeToggle } from './components/theme/ThemeToggle'
 import { useTheme } from './components/theme/ThemeProvider'
+// Removed NumpadOverlay import
 import './App.css'
 
 type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'random' | null;
@@ -14,6 +15,8 @@ type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'r
 function App() {
   const [selectedOperation, setSelectedOperation] = useState<Operation>(null);
   const { theme } = useTheme();
+
+  // Removed isOperationScreenActive variable
 
   const handleOperationSelect = (operation: Operation) => {
     setSelectedOperation(operation);
@@ -24,19 +27,22 @@ function App() {
     setSelectedOperation(null);
   };
 
+  // Removed handleNumpadInput function
+
+
   // Render the appropriate screen based on the selected operation
   const renderContent = () => {
     switch (selectedOperation) {
       case 'addition':
-        return <AdditionScreen onBack={handleBackToMenu} />;
+        return <AdditionScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
       case 'subtraction':
-        return <SubtractionScreen onBack={handleBackToMenu} />;
+        return <SubtractionScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
       case 'multiplication':
-        return <MultiplicationScreen onBack={handleBackToMenu} />;
+        return <MultiplicationScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
       case 'division':
-        return <DivisionScreen onBack={handleBackToMenu} />;
+        return <DivisionScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
       case 'random':
-        return <RandomScreen onBack={handleBackToMenu} />;
+        return <RandomScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
       default:
         return (
           <div className="content-container">
@@ -52,36 +58,36 @@ function App() {
             </div>
             
             <div className="button-container">
-              <Button 
-                className="operation-button" 
+              <Button
+                className="operation-button"
                 variant="default"
                 onClick={() => handleOperationSelect('addition')}
               >
                 ➕ Addition
               </Button>
-              <Button 
-                className="operation-button" 
+              <Button
+                className="operation-button"
                 variant="outline"
                 onClick={() => handleOperationSelect('subtraction')}
               >
                 ➖ Subtraction
               </Button>
-              <Button 
-                className="operation-button" 
+              <Button
+                className="operation-button"
                 variant="secondary"
                 onClick={() => handleOperationSelect('multiplication')}
               >
                 ✖️ Multiplication
               </Button>
-              <Button 
-                className="operation-button" 
+              <Button
+                className="operation-button"
                 variant="destructive"
                 onClick={() => handleOperationSelect('division')}
               >
                 ➗ Division
               </Button>
-              <Button 
-                className="operation-button" 
+              <Button
+                className="operation-button"
                 variant="ghost"
                 onClick={() => handleOperationSelect('random')}
               >
@@ -94,11 +100,12 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
+    <div className={`app-container ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}> {/* Removed conditional numpad-layout class */}
       <div className="theme-toggle-container">
         <ThemeToggle />
       </div>
       {renderContent()}
+      {/* Removed NumpadOverlay rendering */}
     </div>
   );
 }
