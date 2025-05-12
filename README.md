@@ -1,4 +1,4 @@
-![Kids Maths Wiz Logo](src/assets/images/kids-maths-wiz_logo.png)
+<img src="src/assets/images/kids-maths-wiz_logo.png" alt="Kids Maths Wiz Logo" width="25%">
 
 # Kids Maths Wiz
 
