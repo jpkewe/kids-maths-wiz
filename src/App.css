@@ -32,6 +32,21 @@
   max-width: 28rem;
   width: 100%;
   margin: 0 auto;
+  padding: 1.5rem; /* Add padding inside the border */
+  border-radius: 0.75rem; /* Add rounded corners */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Add transitions */
+}
+
+.light-mode .content-container {
+  background-color: #f8fafc; /* Light mode background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Light mode shadow */
+  border: 1px solid #e2e8f0; /* Light mode border */
+}
+
+.dark-mode .content-container {
+  background-color: #334155; /* Dark mode background */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Dark mode shadow */
+  border: 1px solid #475569; /* Dark mode border */
 }
 
 .header {
@@ -72,6 +87,7 @@
   flex-direction: column;
   gap: 1rem;
   margin-top: 2rem;
+  padding-bottom: 2rem; /* Add bottom padding to match top padding of logo */
 }
 
 .status-message {

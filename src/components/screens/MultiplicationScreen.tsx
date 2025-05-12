@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { OperationLayout } from './OperationLayout';
 import { Button } from '../ui/button';
 import {
@@ -23,6 +23,7 @@ export function MultiplicationScreen({ onBack }: MultiplicationScreenProps) {
   const [feedback, setFeedback] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [canProceed, setCanProceed] = useState<boolean>(false);
+  const hasProblemBeenCounted = useRef(false); // Ref to track if the current problem's stats have been counted
   const [stats, setStats] = useState({
     total: 0,
     correct: 0
@@ -39,6 +40,7 @@ export function MultiplicationScreen({ onBack }: MultiplicationScreenProps) {
     setUserAnswer('');
     setFeedback(null);
     setIsCorrect(null);
+    hasProblemBeenCounted.current = false; // Reset the ref for a new problem
     
     console.log('Generated new multiplication problem in useEffect:', newProblem);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,13 +81,23 @@ export function MultiplicationScreen({ onBack }: MultiplicationScreenProps) {
     setFeedback(feedbackMsg);
     console.log('Feedback:', feedbackMsg);
     
-    // Update stats
-    const newStats = {
-      total: stats.total + 1,
-      correct: stats.correct + (correct ? 1 : 0)
-    };
-    setStats(newStats);
-    console.log('Updated stats:', newStats);
+    // Increment total attempts
+    setStats(prevStats => ({
+      ...prevStats,
+      total: prevStats.total + 1
+    }));
+
+    // Update correct stats only if the answer is correct and hasn't been counted for this problem
+    if (correct && !hasProblemBeenCounted.current) {
+      setStats(prevStats => ({
+        ...prevStats,
+        correct: prevStats.correct + 1
+      }));
+      hasProblemBeenCounted.current = true; // Mark this problem as counted
+      console.log('Updated correct stats.');
+    } else if (!correct) {
+       console.log('Answer is incorrect or already counted.');
+    }
     
     if (correct) {
       setCanProceed(true);
@@ -121,6 +133,7 @@ export function MultiplicationScreen({ onBack }: MultiplicationScreenProps) {
     setFeedback(null);
     setIsCorrect(null);
     setCanProceed(false);
+    hasProblemBeenCounted.current = false; // Reset the ref for a new problem
     console.log('Generated new problem:', newProblem);
   };
 
@@ -220,9 +233,7 @@ export function MultiplicationScreen({ onBack }: MultiplicationScreenProps) {
         <div className="stats-display">
           <p>Total Problems: <strong>{stats.total}</strong></p>
           <p>Correct Answers: <strong>{stats.correct}</strong></p>
-          {stats.total > 0 && (
-            <p>Accuracy: <strong>{Math.round((stats.correct / stats.total) * 100)}%</strong></p>
-          )}
+          <p>Accuracy: <strong>{stats.total > 0 ? Math.round((stats.correct / stats.total) * 100) : 0}%</strong></p>
         </div>
       </div>
     </OperationLayout>
