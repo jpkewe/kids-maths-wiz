@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/screens/LoginPage'; // Import LoginPage
 import { Button } from './components/ui/button';
 import { AdditionScreen } from './components/screens/AdditionScreen';
 import { SubtractionScreen } from './components/screens/SubtractionScreen';
@@ -8,14 +8,15 @@ import { DivisionScreen } from './components/screens/DivisionScreen';
 import { RandomScreen } from './components/screens/RandomScreen';
 import { ThemeToggle } from './components/theme/ThemeToggle';
 import { useTheme } from './components/theme/ThemeProvider';
-import LoginPage from './components/screens/LoginPage'; // Import the LoginPage
-import logo from './assets/images/kids-maths-wiz_logo.png';
+import logo from './assets/images/kids-maths-wiz_logo.png'; // Import the logo
+// Removed NumpadOverlay import
 import './App.css';
 
 type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'random' | null;
 
-function MainApp() {
+function App() {
   const [selectedOperation, setSelectedOperation] = useState<Operation>(null);
+  const [showLogin, setShowLogin] = useState(true); // Add state for login page
   const { theme } = useTheme();
 
   const handleOperationSelect = (operation: Operation) => {
@@ -27,7 +28,16 @@ function MainApp() {
     setSelectedOperation(null);
   };
 
-  const renderOperationScreen = () => {
+  const handleEnterApp = () => {
+    setShowLogin(false); // Hide login page and show main content
+  };
+
+  // Render the appropriate screen based on the selected operation or show login
+  const renderContent = () => {
+    if (showLogin) {
+      return <LoginPage onEnter={handleEnterApp} />; // Render LoginPage if showLogin is true
+    }
+
     switch (selectedOperation) {
       case 'addition':
         return <AdditionScreen onBack={handleBackToMenu} />;
@@ -102,24 +112,14 @@ function MainApp() {
 
   return (
     <div className={`app-container ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
-      <div className="theme-toggle-container">
-        <ThemeToggle />
-      </div>
-      {renderOperationScreen()}
+      {!showLogin && ( // Only show theme toggle if not on login page
+        <div className="theme-toggle-container">
+          <ThemeToggle />
+        </div>
+      )}
+      {renderContent()}
     </div>
   );
 }
 
-
-function RootApp() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/" element={<MainApp />} /> {/* Set MainApp as the default route */}
-      </Routes>
-    </Router>
-  );
-}
-
-export default RootApp;
+export default App;
