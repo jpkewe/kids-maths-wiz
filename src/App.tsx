@@ -7,6 +7,7 @@ import { DivisionScreen } from './components/screens/DivisionScreen'
 import { RandomScreen } from './components/screens/RandomScreen'
 import { ThemeToggle } from './components/theme/ThemeToggle'
 import { useTheme } from './components/theme/ThemeProvider'
+import logo from './assets/images/kids-maths-wiz_logo.png'; // Import the logo
 // Removed NumpadOverlay import
 import './App.css'
 
@@ -45,56 +46,61 @@ function App() {
         return <RandomScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
       default:
         return (
-          <div className="content-container">
-            <div className="header">
-              <h1 className="title">Kids Maths Wiz</h1>
-              <p className="subtitle">
-                A fun way for children to learn basic arithmetic
-              </p>
+          <> {/* Use a fragment to wrap multiple elements */}
+            <div className="logo-container"> {/* Add a container for the logo */}
+              <img src={logo} alt="Kids Maths Wiz Logo" className="app-logo" /> {/* Add the logo image */}
             </div>
-            
-            <div className="status-message">
-              Select an operation to begin
+            <div className="content-container">
+              <div className="header">
+                <h1 className="title">Kids Maths Wiz</h1>
+                <p className="subtitle">
+                  A fun way for children to learn basic arithmetic
+                </p>
+              </div>
+
+              <div className="status-message">
+                Select an operation to begin
+              </div>
+
+              <div className="button-container">
+                <Button
+                  className="operation-button"
+                  variant="default"
+                  onClick={() => handleOperationSelect('addition')}
+                >
+                  ➕ Addition
+                </Button>
+                <Button
+                  className="operation-button"
+                  variant="outline"
+                  onClick={() => handleOperationSelect('subtraction')}
+                >
+                  ➖ Subtraction
+                </Button>
+                <Button
+                  className="operation-button"
+                  variant="secondary"
+                  onClick={() => handleOperationSelect('multiplication')}
+                >
+                  ✖️ Multiplication
+                </Button>
+                <Button
+                  className="operation-button"
+                  variant="destructive"
+                  onClick={() => handleOperationSelect('division')}
+                >
+                  ➗ Division
+                </Button>
+                <Button
+                  className="operation-button"
+                  variant="ghost"
+                  onClick={() => handleOperationSelect('random')}
+                >
+                  🔀 Random Mode
+                </Button>
+              </div>
             </div>
-            
-            <div className="button-container">
-              <Button
-                className="operation-button"
-                variant="default"
-                onClick={() => handleOperationSelect('addition')}
-              >
-                ➕ Addition
-              </Button>
-              <Button
-                className="operation-button"
-                variant="outline"
-                onClick={() => handleOperationSelect('subtraction')}
-              >
-                ➖ Subtraction
-              </Button>
-              <Button
-                className="operation-button"
-                variant="secondary"
-                onClick={() => handleOperationSelect('multiplication')}
-              >
-                ✖️ Multiplication
-              </Button>
-              <Button
-                className="operation-button"
-                variant="destructive"
-                onClick={() => handleOperationSelect('division')}
-              >
-                ➗ Division
-              </Button>
-              <Button
-                className="operation-button"
-                variant="ghost"
-                onClick={() => handleOperationSelect('random')}
-              >
-                🔀 Random Mode
-              </Button>
-            </div>
-          </div>
+          </>
         );
     }
   };

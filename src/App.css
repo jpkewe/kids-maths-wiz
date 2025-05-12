@@ -99,3 +99,14 @@
   font-size: 1.125rem;
   padding: 1.5rem 0;
 }
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem; /* Add some space between the logo and the content */
+}
+
+.app-logo {
+  max-width: 150px; /* Adjust the size as needed */
+  height: auto;
+}
