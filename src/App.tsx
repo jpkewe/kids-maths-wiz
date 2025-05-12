@@ -1,23 +1,22 @@
-import { useState } from 'react'
-import { Button } from './components/ui/button'
-import { AdditionScreen } from './components/screens/AdditionScreen'
-import { SubtractionScreen } from './components/screens/SubtractionScreen'
-import { MultiplicationScreen } from './components/screens/MultiplicationScreen'
-import { DivisionScreen } from './components/screens/DivisionScreen'
-import { RandomScreen } from './components/screens/RandomScreen'
-import { ThemeToggle } from './components/theme/ThemeToggle'
-import { useTheme } from './components/theme/ThemeProvider'
-import logo from './assets/images/kids-maths-wiz_logo.png'; // Import the logo
-// Removed NumpadOverlay import
-import './App.css'
+import { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Button } from './components/ui/button';
+import { AdditionScreen } from './components/screens/AdditionScreen';
+import { SubtractionScreen } from './components/screens/SubtractionScreen';
+import { MultiplicationScreen } from './components/screens/MultiplicationScreen';
+import { DivisionScreen } from './components/screens/DivisionScreen';
+import { RandomScreen } from './components/screens/RandomScreen';
+import { ThemeToggle } from './components/theme/ThemeToggle';
+import { useTheme } from './components/theme/ThemeProvider';
+import LoginPage from './components/screens/LoginPage'; // Import the LoginPage
+import logo from './assets/images/kids-maths-wiz_logo.png';
+import './App.css';
 
 type Operation = 'addition' | 'subtraction' | 'multiplication' | 'division' | 'random' | null;
 
-function App() {
+function MainApp() {
   const [selectedOperation, setSelectedOperation] = useState<Operation>(null);
   const { theme } = useTheme();
-
-  // Removed isOperationScreenActive variable
 
   const handleOperationSelect = (operation: Operation) => {
     setSelectedOperation(operation);
@@ -28,27 +27,23 @@ function App() {
     setSelectedOperation(null);
   };
 
-  // Removed handleNumpadInput function
-
-
-  // Render the appropriate screen based on the selected operation
-  const renderContent = () => {
+  const renderOperationScreen = () => {
     switch (selectedOperation) {
       case 'addition':
-        return <AdditionScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
+        return <AdditionScreen onBack={handleBackToMenu} />;
       case 'subtraction':
-        return <SubtractionScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
+        return <SubtractionScreen onBack={handleBackToMenu} />;
       case 'multiplication':
-        return <MultiplicationScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
+        return <MultiplicationScreen onBack={handleBackToMenu} />;
       case 'division':
-        return <DivisionScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
+        return <DivisionScreen onBack={handleBackToMenu} />;
       case 'random':
-        return <RandomScreen onBack={handleBackToMenu} />; // Removed onNumpadInput prop
+        return <RandomScreen onBack={handleBackToMenu} />;
       default:
         return (
-          <> {/* Use a fragment to wrap multiple elements */}
-            <div className="logo-container"> {/* Add a container for the logo */}
-              <img src={logo} alt="Kids Maths Wiz Logo" className="app-logo" /> {/* Add the logo image */}
+          <>
+            <div className="logo-container">
+              <img src={logo} alt="Kids Maths Wiz Logo" className="app-logo" />
             </div>
             <div className="content-container">
               <div className="header">
@@ -106,14 +101,25 @@ function App() {
   };
 
   return (
-    <div className={`app-container ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}> {/* Removed conditional numpad-layout class */}
+    <div className={`app-container ${theme === 'dark' ? 'dark-mode' : 'light-mode'}`}>
       <div className="theme-toggle-container">
         <ThemeToggle />
       </div>
-      {renderContent()}
-      {/* Removed NumpadOverlay rendering */}
+      {renderOperationScreen()}
     </div>
   );
 }
 
-export default App
+
+function RootApp() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<MainApp />} /> {/* Set MainApp as the default route */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default RootApp;
