@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.2",
     "howler": "^2.2.4",
+    "kids-maths-wiz": "file:",
     "react": "^19.1.0",
     "react-confetti": "^6.4.0",
     "react-dom": "^19.1.0"
