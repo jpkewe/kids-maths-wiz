@@ -1,4 +1,8 @@
-<img src="src/assets/images/kids-maths-wiz_logo.png" alt="Kids Maths Wiz Logo" width="25%">
+<div style="background-color: #f0f0f0; padding: 20px; display: inline-block;">
+  <div style="background-color: #f0f0f0; padding: 20px; display: inline-block;">
+    <img src="src/assets/images/kids-maths-wiz_logo.png" alt="Kids Maths Wiz Logo" width="25%">
+  </div>
+</div>
 
 # Kids Maths Wiz
 
