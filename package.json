@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.2",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^11.10.0",
     "howler": "^2.2.4",
     "kids-maths-wiz": "file:",
     "react": "^19.1.0",
